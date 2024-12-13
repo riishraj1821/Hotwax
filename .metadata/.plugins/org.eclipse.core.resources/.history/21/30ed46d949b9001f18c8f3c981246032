@@ -1,0 +1,5 @@
+package com.example.hotwaxLast.repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+public class ContactMechRepository extends JpaRepository<ContactMech, Integer> {
+
+}

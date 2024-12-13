@@ -1,0 +1,25 @@
+package com.example.hotwaxLast.MyController;
+
+@RequestMapping("/orders")
+public class MyController {
+    @Autowired
+    private OrderService orderService;
+
+    @PostMapping
+    public ResponseEntity<OrderHeader> createOrder(@RequestBody OrderHeader order) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderService.createOrder(order));
+    }
+
+    @GetMapping("/{orderId}")
+    public ResponseEntity<OrderHeader> getOrder(@PathVariable int orderId) {
+        return orderService.getOrderById(orderId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{orderId}")
+    public ResponseEntity<Void> deleteOrder(@PathVariable int orderId) {
+        orderService.deleteOrder(orderId);
+        return ResponseEntity.noContent().build();
+    }
+}
